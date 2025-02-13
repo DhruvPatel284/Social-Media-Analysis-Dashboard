@@ -29,7 +29,7 @@ interface AnalyticsData {
   trend_analysis: string[];
 }
 
-export function AnalyticsTab({ category = "Smartphones"}: AnalyticsTabProps) {
+export function AnalyticsTab({ category }: AnalyticsTabProps) {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

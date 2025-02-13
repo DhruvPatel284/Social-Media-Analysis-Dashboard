@@ -10,15 +10,17 @@ import { DashboardTab } from '@/components/dashboard/dashboard-tab';
 import { AnalyticsTab } from '@/components/dashboard/analytics-tab';
 import { ChatbotTab } from '@/components/dashboard/chatbot-tab';
 import { ChatHistoryTab } from '@/components/dashboard/chat-history-tab';
+import  { AdsTab }  from '@/components/dashboard/ads-tab';
 
 export default function DashboardPage() {
   const [category, setCategory] = useState<string>('');
+  const [showTabs, setShowTabs] = useState(false);
 
   const handleAnalyze = () => {
-    if ( !category) {
-      setCategory(category);
+    if (!category) {
       return;
     }
+    setShowTabs(true);
   };
 
   return (
@@ -31,58 +33,66 @@ export default function DashboardPage() {
               <SelectValue placeholder="Select Category" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="technology">Smartphones</SelectItem>
-              <SelectItem value="business">Business</SelectItem>
-              <SelectItem value="entertainment">Entertainment</SelectItem>
-              <SelectItem value="sports">Sports</SelectItem>
-              <SelectItem value="politics">Politics</SelectItem>
+              <SelectItem value="Smartphones">Smartphones</SelectItem>
+              <SelectItem value="Electric Vehicles">Electric Vehicles</SelectItem>
+              <SelectItem value="Gaming Consoles">Gaming Consoles</SelectItem>
             </SelectContent>
           </Select>
           <Button 
             onClick={handleAnalyze}
-            disabled={ !category}
+            disabled={!category}
           >
             Analyze
           </Button>
         </div>
       </div>
 
-      <Tabs defaultValue="dashboard" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="dashboard" className="space-x-2">
-            <Layout className="h-4 w-4" />
-            <span>Dashboard</span>
-          </TabsTrigger>
-          <TabsTrigger value="analytics" className="space-x-2">
-            <BarChart2 className="h-4 w-4" />
-            <span>Analytics</span>
-          </TabsTrigger>
-          <TabsTrigger value="chatbot" className="space-x-2">
-            <MessagesSquare className="h-4 w-4" />
-            <span>Chatbot</span>
-          </TabsTrigger>
-          <TabsTrigger value="history" className="space-x-2">
-            <History className="h-4 w-4" />
-            <span>Chat History</span>
-          </TabsTrigger>
-        </TabsList>
+      {showTabs && (
+        <Tabs defaultValue="dashboard" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="dashboard" className="space-x-2">
+              <Layout className="h-4 w-4" />
+              <span>Dashboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="space-x-2">
+              <BarChart2 className="h-4 w-4" />
+              <span>Analytics</span>
+            </TabsTrigger>
+            <TabsTrigger value="chatbot" className="space-x-2">
+              <MessagesSquare className="h-4 w-4" />
+              <span>Chatbot</span>
+            </TabsTrigger>
+            <TabsTrigger value="history" className="space-x-2">
+              <History className="h-4 w-4" />
+              <span>Chat History</span>
+            </TabsTrigger>
+            <TabsTrigger value="ads" className="space-x-2">
+              <History className="h-4 w-4" />
+              <span>Ads</span>
+            </TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="dashboard">
-          <DashboardTab category={category} />
-        </TabsContent>
+          <TabsContent value="dashboard">
+            <DashboardTab category={category} />
+          </TabsContent>
 
-        <TabsContent value="analytics">
-          <AnalyticsTab category={category} />
-        </TabsContent>
+          <TabsContent value="analytics">
+            <AnalyticsTab category={category} />
+          </TabsContent>
 
-        <TabsContent value="chatbot">
-          <ChatbotTab />
-        </TabsContent>
+          <TabsContent value="chatbot">
+            <ChatbotTab category={category} />
+          </TabsContent>
 
-        <TabsContent value="history">
-          <ChatHistoryTab />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="history">
+            <ChatHistoryTab />
+          </TabsContent>
+
+          <TabsContent value="ads">
+            <AdsTab category={category}/>
+          </TabsContent>
+        </Tabs>
+      )}
     </div>
   );
 }

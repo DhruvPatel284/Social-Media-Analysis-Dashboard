@@ -108,14 +108,6 @@ class MarketingChatbot:
         return f"""
         Context for {category} category:
         
-        Recent Market Data:
-        - Top Channels: {', '.join(context['category_metrics']['top_channels'])}
-        - Trending Topics: {', '.join(context['category_metrics']['trending_topics'])}
-        - Recent Campaigns: {', '.join(context['category_metrics']['recent_campaigns'])}
-        
-        Current Market Trends:
-        {json.dumps(context['market_trends'], indent=2)}
-        
         User Question: {question}
         
         Please provide a detailed response that:

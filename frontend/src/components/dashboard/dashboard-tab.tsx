@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Card } from '@/components/ui/card';
 import { 
   BarChart, 
@@ -18,6 +20,7 @@ import {
   AreaChart,
   Area
 } from 'recharts';
+import { BACKEND_URL } from '@/lib/config';
 
 interface DashboardTabProps {
   category: string;
@@ -43,46 +46,76 @@ const formatNumber = (num: number) => {
   return num;
 };
 
-export function DashboardTab({  category }: DashboardTabProps) {
-  // Sample data transformation for timeline chart
-  const timelineData = [
-    { month: 'Feb 24', views: 36315953, engagement: 2.23 },
-    { month: 'Mar 24', views: 11370211, engagement: 2.42 },
-    { month: 'Apr 24', views: 18833077, engagement: 2.42 },
-    { month: 'May 24', views: 35314402, engagement: 2.26 },
-    { month: 'Jun 24', views: 42781609, engagement: 2.05 },
-    { month: 'Jul 24', views: 7757180, engagement: 2.08 },
-    { month: 'Aug 24', views: 55700993, engagement: 2.43 },
-    { month: 'Sep 24', views: 61553522, engagement: 2.22 },
-    { month: 'Oct 24', views: 39900177, engagement: 2.47 },
-    { month: 'Nov 24', views: 16702594, engagement: 2.79 },
-    { month: 'Dec 24', views: 12236396, engagement: 3.36 },
-    { month: 'Jan 25', views: 14023234, engagement: 2.41 }
-  ];
+export function DashboardTab({ category }: DashboardTabProps) {
+  const [overview, setOverview] = useState<any>(null);
+  const [channels, setChannels] = useState<any>(null);
+  const [trends, setTrends] = useState<any>(null);
+  const [timeline, setTimeline] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Top keywords data
-  const keywordsData = [
-    { name: 'pixel', value: 721 },
-    { name: 'iphone', value: 558 },
-    { name: 'oneplus', value: 520 },
-    { name: 'galaxy', value: 510 },
-    { name: 'samsung', value: 421 }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [overviewRes, channelsRes, trendsRes, timelineRes] = await Promise.all([
+          axios.get(`${BACKEND_URL}/api/dashboard/${category}/overview`),
+          axios.get(`${BACKEND_URL}/api/dashboard/${category}/channels`),
+          axios.get(`${BACKEND_URL}/api/dashboard/${category}/trends`),
+          axios.get(`${BACKEND_URL}/api/dashboard/${category}/timeline`)
+        ]);
 
-  // Channel performance data
-  const channelData = [
-    { name: 'Marques Brownlee', views: 34518186, engagement: 3.32 },
-    { name: 'MobilePapa', views: 22939066, engagement: 3.17 },
-    { name: 'Mrwhosetheboss', views: 18084687, engagement: 4.35 },
-    { name: 'TechDroider', views: 15328476, engagement: 4.05 },
-    { name: 'Danny Winget', views: 16176909, engagement: 4.01 }
-  ];
+        setOverview(overviewRes.data);
+        setChannels(channelsRes.data);
+        setTrends(trendsRes.data);
+        setTimeline(timelineRes.data);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Engagement metrics
-  const engagementData = {
-    likes_per_view: 0.033,
-    comments_per_view: 0.00076,
-    comments_per_like: 0.023
+    if (category) {
+      fetchData();
+    }
+  }, [category]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Transform timeline data
+  const timelineData = timeline ? Object.entries(timeline).map(([month, data]: [string, any]) => ({
+    month,
+    views: data.views,
+    engagement: data.avg_engagement
+  })) : [];
+
+  // Transform trends data for keywords
+  const keywordsData = trends ? Object.entries(trends.top_keywords)
+    .slice(0, 5)
+    .map(([name, value]: [string, any]) => ({
+      name,
+      value
+    })) : [];
+
+  // Transform channels data
+  const channelData = channels ? Object.entries(channels.top_channels)
+    .map(([name, data]: [string, any]) => ({
+      name,
+      views: data.total_views,
+      engagement: data.avg_engagement
+    })) : [];
+
+  // Get engagement metrics from overview
+  const engagementData = overview ? {
+    likes_per_view: overview.total_likes / overview.total_views,
+    comments_per_view: overview.total_comments / overview.total_views,
+    comments_per_like: overview.total_comments / overview.total_likes
+  } : {
+    likes_per_view: 0,
+    comments_per_view: 0,
+    comments_per_like: 0
   };
 
   return (
