@@ -385,28 +385,22 @@ class AstraDataCollector:
 def main():
     # Example categories with more realistic queries
     categories = {
-        "Smartphones": [
-            "iPhone 15 reviews",
-            "Samsung S24 Ultra features",
-            "Google Pixel 8 comparison",
-            "OnePlus 12 launch",
-            "Best smartphones 2024"
+        "Motivation": [
+            "Best self-improvement books",
+            "Morning routines of successful people",
+            "How to stay motivated daily",
+            "Power of positive thinking",
+            "Overcoming procrastination tips"
         ],
-        "Electric Vehicles": [
-            "Tesla Model Y review",
-            "Ford Mustang Mach-E specs",
-            "Rivian R1T features",
-            "Hyundai IONIQ 6 launch",
-            "Best EVs 2024"
-        ],
-        "Gaming Consoles": [
-            "PS5 Slim review",
-            "Xbox Series X games",
-            "Nintendo Switch 2 rumors",
-            "Steam Deck OLED features",
-            "Best gaming consoles 2024"
+        "Educational": [
+            "Top online learning platforms",
+            "Best programming languages to learn in 2025",
+            "Effective study techniques",
+            "How to improve critical thinking",
+            "AI in modern education"
         ]
     }
+
     
     collector = AstraDataCollector()
     

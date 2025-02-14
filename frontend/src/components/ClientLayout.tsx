@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Toaster } from "react-hot-toast";
+import Navbar from "./custom/Navbar";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -10,6 +11,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <div>
+      {!noAppbarPaths.includes(pathname) && <Navbar />}
       {children}
       <Toaster position="bottom-right" />
     </div>

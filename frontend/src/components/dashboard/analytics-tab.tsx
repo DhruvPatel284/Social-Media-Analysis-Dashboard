@@ -185,7 +185,7 @@ export function AnalyticsTab({ category }: AnalyticsTabProps) {
               ))}
             </TabsContent>
           </Tabs>
-        </div>
+        </div>  
       </CardContent>
     </Card>
   );

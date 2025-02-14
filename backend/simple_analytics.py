@@ -1,10 +1,6 @@
-from flask import Flask, jsonify, request
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
-from datetime import datetime, timedelta
-import pandas as pd
 from collections import Counter
-from flask_cors import CORS
 import json
 import logging
 from config import *
