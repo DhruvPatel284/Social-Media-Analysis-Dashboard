@@ -1,0 +1,11 @@
+Flask
+flask-cors
+cassandra-driver
+pandas
+numpy
+aiohttp
+requests
+ratelimit
+google-api-python-client
+groq
+gunicorn
