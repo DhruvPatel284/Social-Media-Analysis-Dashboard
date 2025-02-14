@@ -9,3 +9,4 @@ ratelimit
 google-api-python-client
 groq
 gunicorn
+python-dotenv
