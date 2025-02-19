@@ -2,7 +2,7 @@ import { NextResponse,NextRequest } from 'next/server';
 import { sign } from 'jsonwebtoken';
 import  prisma  from '@/lib/prisma';
 import axios from "axios"
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     const { token } = await req.json();
     
     if (!token) {

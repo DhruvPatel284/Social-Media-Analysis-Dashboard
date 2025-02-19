@@ -30,7 +30,7 @@ interface AnalyticsData {
 }
 
 // Custom tooltip for the chart
-const CustomTooltip = ({ active, payload, label, ...props }: any) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-gray-800 p-3 rounded-md shadow-lg border border-indigo-500/20 text-gray-200">

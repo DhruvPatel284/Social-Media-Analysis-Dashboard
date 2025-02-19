@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { BACKEND_URL } from '@/lib/config';
+import Image from 'next/image';
 
 interface GeneratedImage {
   url: string;
@@ -112,10 +113,11 @@ export function AdsTab() {
           {images.map((image, index) => (
             <div key={index} className="flex flex-col space-y-2">
               <div className="relative aspect-square overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={image.url}
                   alt={`Generated ad ${index + 1}`}
                   className="object-cover w-full h-full hover:scale-105 transition-transform duration-200"
+                  layout="fill"
                 />
               </div>
               <p className="text-sm text-gray-600 break-words">

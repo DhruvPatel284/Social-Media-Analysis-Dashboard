@@ -3,15 +3,10 @@
 import React, { useState, useEffect } from "react";
 import {
   Home,
-  BarChart2,
-  Users,
-  Settings,
   Bell,
   Search,
   Menu,
   X,
-  ArrowDownToDot,
-  Megaphone,
 } from "lucide-react";
 import Link from "next/link";
 

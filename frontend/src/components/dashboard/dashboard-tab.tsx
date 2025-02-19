@@ -34,18 +34,18 @@ const COLORS = [
 ];
 
 // Format large numbers with K/M suffix
-const formatNumber = (num: number) => {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}M`;
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}K`;
-  }
-  return num;
-};
+// const formatNumber = (num: number) => {
+//   if (num >= 1000000) {
+//     return `${(num / 1000000).toFixed(1)}M`;
+//   }
+//   if (num >= 1000) {
+//     return `${(num / 1000).toFixed(1)}K`;
+//   }
+//   return num;
+// };
 
 // Custom tooltip styles
-const CustomTooltip = ({ active, payload, label, ...props }: any) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-gray-800 p-3 rounded-md shadow-lg border border-indigo-500/20 backdrop-blur-sm">

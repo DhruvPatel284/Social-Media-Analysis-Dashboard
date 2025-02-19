@@ -8,7 +8,6 @@ import { BarChart2, Layout, MessagesSquare } from "lucide-react"
 import { DashboardTab } from "@/components/dashboard/dashboard-tab"
 import { AnalyticsTab } from "@/components/dashboard/analytics-tab"
 import { ChatbotTab } from "@/components/dashboard/chatbot-tab"
-import AdsTab from "@/components/dashboard/ads-tab"
 
 export default function DashboardPage() {
   const [category, setCategory] = useState<string>("")

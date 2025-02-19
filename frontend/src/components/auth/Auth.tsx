@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import { SignupInput } from "@dhruv156328/medium-common"
-import { Toaster, toast } from "react-hot-toast"
+import { toast } from "react-hot-toast"
 import { motion } from "framer-motion"
 import { LockIcon, MailIcon, UserIcon } from 'lucide-react'
 import { GoogleLogin } from '@react-oauth/google'
@@ -35,6 +35,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in!")
+      console.log("error :",e)
     }
   }
 
@@ -57,6 +58,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in!")
+      console.log("error :",e)
     }
   }
 
@@ -78,6 +80,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in with Google!")
+      console.log("error :",e)
     }
   }
 
