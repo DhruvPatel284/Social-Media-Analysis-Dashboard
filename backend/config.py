@@ -35,9 +35,12 @@ SERPER_API_KEY = os.getenv('SERPER_API_KEY')
 ASTRA_DB_TOKEN = os.getenv('ASTRA_DB_TOKEN')
 ASTRA_DB_KEYSPACE = os.getenv('ASTRA_DB_KEYSPACE', 'social_dashboard')
 SECURE_BUNDLE_PATH = os.getenv('SECURE_BUNDLE_PATH', 'secure-connect-your-db.zip')
-GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 SEGMIND_API_KEY = os.getenv('SEGMIND_API_KEY')
+
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+CHAT_GROQ_API_KEY= os.getenv('CHAT_GROQ_API_KEY')
+ADS_GROQ_API_KEY= os.getenv('ADS_GROQ_API_KEY')
 
 # Collection Settings
 VIDEOS_PER_QUERY = 100

@@ -16,7 +16,6 @@ class AdImageGenerator:
         self.segmind_api_key = SEGMIND_API_KEY
         self.groq_client = Groq(api_key=GROQ_API_KEY)
 
-
     async def _generate_prompts(self, category: str) -> List[str]:
         """Generate image prompts using Groq"""
         try:
@@ -24,11 +23,11 @@ class AdImageGenerator:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are an advertising expert. Create 6 clear, detailed image prompts for SDXL image generation."
+                        "content": "You are an advertising expert. Create 3 clear, detailed image prompts for SDXL image generation."
                     },
                     {
                         "role": "user",
-                        "content": f"""Generate 6 different advertising image prompts for ${category}. Each prompt should be self-contained and focus on different aspects: lifestyle, product showcase, emotional appeal, and brand story."""
+                        "content": f"""Generate 3 different advertising image prompts for ${category}. Each prompt should be self-contained and focus on different aspects:  marketing advertising post, product showcase, and social media advertisingn post. Each prompt should be unique and not too similar to others. The prompts should be clear, concise, and include keywords that are relevant to the category. The prompts should be written in English and should not contain any copyrighted material. The prompts should be written in a way that is easy to understand and follow. The prompts should"""
                     }
                 ],
                 model="mixtral-8x7b-32768",
@@ -42,7 +41,7 @@ class AdImageGenerator:
                 re.sub(r'^\d+\.\s*', '', p).strip()  # Use regex to remove numbering
                 for p in prompts
                 if p.strip() and not p.startswith(('Note:', '-'))
-            ][:6] 
+            ][:3]  # Changed to take only first 3 prompts
                 
         except Exception as e:
             logger.error(f"Error generating prompts: {str(e)}")

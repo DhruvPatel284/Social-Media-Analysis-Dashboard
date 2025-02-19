@@ -31,7 +31,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       toast.success("Logged In!")
       const jwt = response.data
       localStorage.setItem("token", jwt)
-      navigate.push("/")
+      navigate.push("/dashboard")
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in!")
@@ -53,7 +53,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       toast.success("Logged In!")
       const jwt = response.data
       localStorage.setItem("token", jwt)
-      navigate.push("/")
+      navigate.push("/dashboard")
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in!")
@@ -74,7 +74,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       toast.success("Logged In with Google!")
       const jwt = response.data.token;
       localStorage.setItem("token", jwt)
-      navigate.push("/")
+      navigate.push("/dashboard")
     } catch (e) {
       toast.dismiss()
       toast.error("Error while logging in with Google!")

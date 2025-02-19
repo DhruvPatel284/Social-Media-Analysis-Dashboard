@@ -16,6 +16,7 @@ from text_analytics import TextAnalytics
 from chatbot import MarketingChatbot
 from adgenerator import AdImageGenerator
 import asyncio 
+from improved_text_analytics import ImprovedTextAnalytics
 
 
 app = Flask(__name__)
@@ -69,7 +70,7 @@ def generate_ads(category):
     
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """Chatbot endpoint for marketing-related queries"""
+    """Chatbot endpoint for marketing-related queries with script modes"""
     try:
         data = request.get_json()
         if not data or 'category' not in data or 'question' not in data:
@@ -77,11 +78,26 @@ def chat():
             
         category = data['category']
         question = data['question']
+        mode = data.get('mode')  # Optional mode parameter
+        script_content = data.get('script_content')  # Optional script content for enhancement
+        
+        # Validate mode if provided
+        if mode and mode not in ["script_creation", "script_enhance"]:
+            return jsonify({'error': 'Invalid mode. Must be either "script_creation" or "script_enhance"'}), 400
+            
+        # Validate script content for enhancement mode
+        if mode == "script_enhance" and not script_content:
+            return jsonify({'error': 'Script content is required for enhancement mode'}), 400
         
         chatbot = MarketingChatbot()
 
-        # Generate response
-        response = chatbot.generate_response(category, question)
+        # Generate response with mode and script content
+        response = chatbot.generate_response(
+            category=category,
+            user_question=question,
+            mode=mode,
+            script_content=script_content
+        )
         
         if 'error' in response:
             return jsonify(response), 500
@@ -92,8 +108,8 @@ def chat():
         logger.error(f"Error in chat endpoint: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-
 text_analytics = TextAnalytics()
+# text_analysis = ImprovedTextAnalytics()
 @app.route('/api/dashboard/<category>/text-analysis')
 def text_analysis(category):
     """Get comprehensive text analysis for a category"""

@@ -4,16 +4,15 @@ import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { BarChart2, Layout, MessagesSquare, Moon, Sun } from "lucide-react"
+import { BarChart2, Layout, MessagesSquare } from "lucide-react"
 import { DashboardTab } from "@/components/dashboard/dashboard-tab"
 import { AnalyticsTab } from "@/components/dashboard/analytics-tab"
 import { ChatbotTab } from "@/components/dashboard/chatbot-tab"
-import { useTheme } from "next-themes"
+import AdsTab from "@/components/dashboard/ads-tab"
 
 export default function DashboardPage() {
   const [category, setCategory] = useState<string>("")
   const [showTabs, setShowTabs] = useState(false)
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -28,70 +27,83 @@ export default function DashboardPage() {
   if (!mounted) return null
 
   return (
-    <div className="flex min-h-screen flex-col space-y-6 p-8 bg-background text-foreground transition-colors duration-300">
-      <div className="h-[50px]"></div>
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+    <div className="flex min-h-screen flex-col space-y-6 p-4 sm:p-8  bg-gradient-to-br from-gray-900 to-gray-950 text-gray-100 transition-all duration-300 ease-in-out">
+      <div className="h-[10px]"></div>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <h2 className="text-3xl text-center mx-auto  sm:text-4xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent transition-all duration-300 ease-in-out hover:from-indigo-500 hover:to-purple-600">
           Social Media Analysis
         </h2>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 w-full sm:w-auto">
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-full sm:w-[200px] bg-gray-800/50 backdrop-blur-sm border-indigo-500/20 text-gray-200">
               <SelectValue placeholder="Select Category" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Smartphones">Smartphones</SelectItem>
-              <SelectItem value="Electric Vehicles">Electric Vehicles</SelectItem>
-              <SelectItem value="Gaming Consoles">Gaming Consoles</SelectItem>
-              <SelectItem value="Motivation">Motivation</SelectItem>
-              <SelectItem value="Educational">Educational</SelectItem>
+            <SelectContent className="bg-gray-800 border-indigo-500/20 text-gray-200">
+              <SelectItem value="Informative Content">Informative Content</SelectItem>
+              <SelectItem value="Motivational">Motivational</SelectItem>
+              <SelectItem value="Tech Reviews">Tech Reviews</SelectItem>
             </SelectContent>
           </Select>
           <Button
             onClick={handleAnalyze}
             disabled={!category}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+            className="bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white transition-all duration-300 ease-in-out shadow-lg shadow-indigo-500/20"
           >
             Analyze
-          </Button>
-          <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            {theme === "dark" ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-            <span className="sr-only">Toggle theme</span>
           </Button>
         </div>
       </div>
 
       {showTabs && (
         <Tabs defaultValue="dashboard" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-3 bg-muted/20 p-1 rounded-lg">
-            <TabsTrigger value="dashboard" className="space-x-2 data-[state=active]:bg-background">
-              <Layout className="h-4 w-4" />
-              <span>Dashboard</span>
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="space-x-2 data-[state=active]:bg-background">
-              <BarChart2 className="h-4 w-4" />
-              <span>Analytics</span>
-            </TabsTrigger>
-            <TabsTrigger value="chatbot" className="space-x-2 data-[state=active]:bg-background">
-              <MessagesSquare className="h-4 w-4" />
-              <span>Chatbot</span>
-            </TabsTrigger>
-          </TabsList>
+          <div className="relative">
+            <TabsList className="w-full grid grid-cols-3 bg-[#131d38] backdrop-blur-sm rounded-lg border border-indigo-500/10 overflow-hidden">
+              <TabsTrigger
+                value="dashboard"
+                className="flex items-center justify-center space-x-2 rounded-md py-3 px-3 text-sm font-medium transition-all duration-300 ease-in-out text-gray-300 hover:text-white data-[state=active]:bg-[#1e2d5e] data-[state=active]:text-white relative"
+              >
+                <Layout className="h-4 w-4 mr-2" />
+                <span>Dashboard</span>
+                <div className="absolute bottom-0 inset-x-0 h-0.5 bg-indigo-500 transform scale-x-0 transition-transform duration-300 data-[state=active]:scale-x-100"></div>
+              </TabsTrigger>
+              <TabsTrigger
+                value="analytics"
+                className="flex items-center justify-center space-x-2 rounded-md py-3 px-3 text-sm font-medium transition-all duration-300 ease-in-out text-gray-300 hover:text-white data-[state=active]:bg-[#1e2d5e] data-[state=active]:text-white relative"
+              >
+                <BarChart2 className="h-4 w-4 mr-2" />
+                <span>Analytics</span>
+                <div className="absolute bottom-0 inset-x-0 h-0.5 bg-indigo-500 transform scale-x-0 transition-transform duration-300 data-[state=active]:scale-x-100"></div>
+              </TabsTrigger>
+              <TabsTrigger
+                value="chatbot"
+                className="flex items-center justify-center space-x-2 rounded-md py-3 px-3 text-sm font-medium transition-all duration-300 ease-in-out text-gray-300 hover:text-white data-[state=active]:bg-[#1e2d5e] data-[state=active]:text-white relative"
+              >
+                <MessagesSquare className="h-4 w-4 mr-2" />
+                <span>Chatbot</span>
+                <div className="absolute bottom-0 inset-x-0 h-0.5 bg-indigo-500 transform scale-x-0 transition-transform duration-300 data-[state=active]:scale-x-100"></div>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="dashboard">
-            <DashboardTab category={category} />
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-indigo-500/10 p-4 sm:p-6 shadow-xl">
+              <DashboardTab category={category} />
+            </div>
           </TabsContent>
 
           <TabsContent value="analytics">
-            <AnalyticsTab category={category} />
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-indigo-500/10 p-4 sm:p-6 shadow-xl">
+              <AnalyticsTab category={category} />
+            </div>
           </TabsContent>
 
           <TabsContent value="chatbot">
-            <ChatbotTab category={category} />
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-indigo-500/10 p-4 sm:p-6 shadow-xl">
+              <ChatbotTab category={category} />
+            </div>
           </TabsContent>
         </Tabs>
       )}
     </div>
   )
 }
-
