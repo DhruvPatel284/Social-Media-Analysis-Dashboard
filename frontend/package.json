@@ -7,11 +7,11 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@dhruv156328/medium-common": "^1.0.0",
-    "@prisma/client": "^6.3.1",
+    "@prisma/client": "^6.4.0",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.1",
@@ -27,6 +27,7 @@
     "lucide-react": "^0.471.0",
     "next": "15.1.4",
     "next-themes": "^0.4.4",
+    "prisma": "^6.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
